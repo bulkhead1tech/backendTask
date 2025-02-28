@@ -103,7 +103,26 @@ async function startServer() {
         res.status(500).json({ message: "Failed to update task" });
       }
     });
+    app.delete("/delete/:id", async (req, res) => {
+      try {
+        const { id } = req.params;
 
+        if (!id) {
+          return res.status(400).json({ message: "Missing required fields" });
+        }
+        const task = Task.findById(id);
+        if (!task) {
+          return res.status(404).json({ message: "Task not found" });
+        }
+
+        await Task.findByIdAndDelete(id);
+        await updatePriorities();
+        res.json({ message: "Task deleted successfully" });
+      } catch (error) {
+        console.error("Error deleting task:", error);
+        res.status(500).json({ message: "Failed to delete task" });
+      }
+    });
     const port = process.env.PORT || 4001;
     app.listen(port, () => {
       console.log(`Server listening on port ${port}`);
