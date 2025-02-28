@@ -10,6 +10,8 @@ async function updatePriorities() {
         const collection = database.collection("task");
 
         const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
 
         const result = await collection.updateMany(
             { deadline: { $lt: currentDate } },
