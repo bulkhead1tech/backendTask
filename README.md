@@ -18,12 +18,12 @@ This Task Management Project is designed to help users manage their tasks effect
 ## Setup and Installation
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/bulkhead1tech/taskbackend.git
+    git clone https://github.com/bulkhead1tech/backendTask.git
     ```
 
 2. **Navigate to the project directory**:
     ```sh
-    cd taskbackend
+    cd backend
     ```
 
 3. **Install dependencies**:
