@@ -12,6 +12,7 @@ async function updatePriorities() {
         const currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0);
 
+
         const result = await collection.updateMany(
             { deadline: { $lt: currentDate } },
             { $set: { priority: 3 } }
