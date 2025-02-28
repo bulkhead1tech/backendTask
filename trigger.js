@@ -10,10 +10,11 @@ async function updatePriorities() {
         const collection = database.collection("task");
 
         const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 1);
 
 
         const result = await collection.updateMany(
-            { deadline: { $lt: currentDate+1 } },
+            { deadline: { $lt: currentDate } },
             { $set: { priority: 3 } }
         );
 
