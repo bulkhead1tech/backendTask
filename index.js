@@ -94,7 +94,10 @@ async function startServer() {
           await Task.findByIdAndUpdate(id, { progress: true });
         } else if (request === "2") {
           await Task.findByIdAndUpdate(id, { priority: 2 });
-        } else {
+        }
+        else if (request === "3") {
+          await Task.findByIdAndUpdate(id, { priority: 3 });
+        }else {
           return res.status(400).json({ message: "Invalid request type" });
         }
 
