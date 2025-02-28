@@ -18,7 +18,7 @@ async function startServer() {
     await connectdb();
     await updatePriorities();
 
-    app.get("/data", async (req, res) => {
+    app.get("/tasks", async (req, res) => {
       try {
         const priority = req.query.priority;
         const progress = req.query.progress === "true"; 
@@ -54,11 +54,9 @@ async function startServer() {
         res.status(500).json({ message: "Internal server error" });
       }
     });
-    app.get("/",  (req, res) => {
-          res.send("hi")
-    });
+  
 
-    app.post("/create", async (req, res) => {
+    app.post("/tasks", async (req, res) => {
       try {
         const { title, description, deadline, priority } = req.body;
 
@@ -75,15 +73,16 @@ async function startServer() {
       }
     });
 
-    app.put("/update", async (req, res) => {
+    app.put("/tasks/:id", async (req, res) => {
       try {
-        const { id, request } = req.body;
+        const {id} = req.params;
+        const { request } = req.body;
 
         if (!id || !request) {
           return res.status(400).json({ message: "Missing required fields" });
         }
 
-        const task = Task.findById(id); // Use findById for single document
+        const task = Task.findById(id); 
 
         if (!task) {
           return res.status(404).json({ message: "Task not found" });
@@ -103,7 +102,7 @@ async function startServer() {
         res.status(500).json({ message: "Failed to update task" });
       }
     });
-    app.delete("/delete/:id", async (req, res) => {
+    app.delete("/tasks/:id", async (req, res) => {
       try {
         const { id } = req.params;
 
